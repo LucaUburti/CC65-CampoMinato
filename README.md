@@ -1,4 +1,4 @@
-# CC65-CampoMinato
+# CC65-CampoMinato - Minesweeper
 Minesweeper - CC65 based
 
 By popular demand (by me!), a remake of the evergreen minesweeper game for the evergreen Commodore 64
