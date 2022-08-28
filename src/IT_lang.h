@@ -38,7 +38,7 @@
 #define INTRO21 "  |______\\__,_|\\___\\__,_| (_)  | |      "
 #define INTRO22 "                              /_/       "
 #define INTRO23 "\n"
-#define INTRO24 "                             v1.1 8.2022"
+#define INTRO24 "                             v1.2 8.2022"
 
     /* 
   / ____|   /\   |  \/  |  __ \ / __ \   

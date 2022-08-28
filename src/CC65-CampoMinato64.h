@@ -17,3 +17,5 @@ void gameEnded(void);
 void discoverEmptyCellsNearbyRecursive(int, int);
 void discoverEmptyCellsNearbyIterative(int, int);
 void checkWinCondition(void);
+void redrawCell(int, int);
+

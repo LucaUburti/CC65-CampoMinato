@@ -105,8 +105,9 @@ void splashScreen() {
 	printf(INTRO23);
 	printf(INTRO24);
 
-	sleep(4);
+	cgetc();
 	clrscr();
+
 }
 
 void gameSetup(void) {
@@ -254,6 +255,7 @@ void gamePlay(void) {
 		case 'w':
 			if (y > 0) {
 				gotoxy(x, --y);
+				redrawCell(y + 1, x);
 				gotoxy(0, 24);
 				printf("x:%d y:%d                            ", x + 1, y + 1);
 				gotoxy(x, y);
@@ -263,7 +265,7 @@ void gamePlay(void) {
 		case 'a':
 			if (x > 0) {
 				gotoxy(--x, y);
-
+				redrawCell(y, x+1);
 				gotoxy(0, 24);
 				printf("x:%d y:%d                            ", x + 1, y + 1);
 				gotoxy(x, y);
@@ -272,7 +274,7 @@ void gamePlay(void) {
 		case 's':
 			if (y < rows - 1) {
 				gotoxy(x, ++y);
-
+				redrawCell(y - 1, x);
 				gotoxy(0, 24);
 				printf("x:%d y:%d                            ", x + 1, y + 1);
 				gotoxy(x, y);
@@ -281,7 +283,7 @@ void gamePlay(void) {
 		case 'd':
 			if (x < cols - 1) {
 				gotoxy(++x, y);
-
+				redrawCell(y, x-1);
 				gotoxy(0, 24);
 				printf("x:%d y:%d                            ", x + 1, y + 1);
 				gotoxy(x, y);
@@ -349,6 +351,58 @@ void gamePlay(void) {
 	}
 
 }
+
+void redrawCell(int r, int c) { //cursor "bug" workaround, the cursor leaves a black characters trail in its wake
+	cursor(0);
+	gotoxy(c, r);
+	revers(1);
+	if (field[r][c].isVisible == 0) {
+		textcolor(COLOR_WHITE);
+		printf("+");
+	}
+	else {
+		switch (field[r][c].bombsNearby) {
+		case 0:
+			textcolor(COLOR_WHITE);
+			break;
+		case 1:
+			textcolor(COLOR_CYAN);
+			break;
+		case 2:
+			textcolor(COLOR_GREEN);
+			break;
+		case 3:
+			textcolor(COLOR_BLUE);
+			break;
+		case 4:
+			textcolor(COLOR_PURPLE);
+			break;
+		case 5:
+			textcolor(COLOR_LIGHTRED);
+			break;
+		case 6:
+			textcolor(COLOR_ORANGE);
+			break;
+		case 7:
+			textcolor(COLOR_BROWN);
+			break;
+		case 8:
+			textcolor(COLOR_BROWN);
+			break;
+		}
+		if (field[r][c].bombsNearby > 0) {
+			printf("%d", field[r][c].bombsNearby);
+		}
+		else {
+			printf(" ");
+		}
+
+	}
+	textcolor(COLOR_WHITE);
+	cursor(1);
+	revers(0);
+}
+
 
 
 void displayField() {
@@ -631,5 +685,5 @@ void gameEnded() {
 		clrscr();
 		printf("Ciao!");
 	}
-
+	revers(0);
 }
